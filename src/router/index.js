@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import About from "@/views/About.vue"
-import PDetails from "@/views/PDetails.vue"
+import Layout from '@/views/event/Layout.vue'
+import Passenger from '@/views/event/Passenger.vue'
+import Airline from '@/views/event/Airline.vue'
 
 const routes = [
   {
@@ -16,9 +18,23 @@ const routes = [
   },
   {
     path: "/passenger/:id",
-    name:"PDetails",
-    component: PDetails,
-    props: true
+    name:"Layout",
+    component: Layout,
+    props: true,
+
+    children: [
+      {
+        path: '',
+        name: 'Passenger',
+        component: Passenger
+      },
+      {
+        path: 'airline',
+        name: 'Airline',
+        props: true,
+        component: Airline
+      }
+    ]
   }
 ];
 

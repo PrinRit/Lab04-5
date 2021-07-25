@@ -1,6 +1,6 @@
 <template>
 
-  <router-link :to="{name:'PDetails',params:{id: event._id}}">
+  <router-link :to="{name:'Layout',params:{id: event._id}}">
     <div class="event-card">
       <h4>{{ event.name }}</h4>
       <p>Trips: {{event.trips}}</p>
