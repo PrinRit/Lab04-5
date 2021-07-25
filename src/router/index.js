@@ -4,6 +4,7 @@ import About from "@/views/About.vue"
 import Layout from '@/views/event/Layout.vue'
 import Passenger from '@/views/event/Passenger.vue'
 import Airline from '@/views/event/Airline.vue'
+import NotFound from '@/views/NotFound.vue'
 
 const routes = [
   {
@@ -35,7 +36,18 @@ const routes = [
         component: Airline
       }
     ]
-  }
+  },
+  {
+    path: '/404/:resource',
+    name: '404Resource',
+    component: NotFound,
+    props: true
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: 'NotFound',
+    component: NotFound
+  },
 ];
 
 const router = createRouter({
