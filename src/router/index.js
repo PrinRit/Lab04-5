@@ -5,6 +5,7 @@ import Layout from '@/views/event/Layout.vue'
 import Passenger from '@/views/event/Passenger.vue'
 import Airline from '@/views/event/Airline.vue'
 import NotFound from '@/views/NotFound.vue'
+import Edit from '@/views/event/Edit.vue'
 
 const routes = [
   {
@@ -34,6 +35,11 @@ const routes = [
         name: 'Airline',
         props: true,
         component: Airline
+      },
+      {
+        path: 'edit',
+        name: 'Edit',
+        component: Edit
       }
     ]
   },

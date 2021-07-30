@@ -9,6 +9,10 @@
       <router-link :to="{ name: 'Airline', params: { _id } }">
         Airline
       </router-link>
+      |
+      <router-link :to="{ name: 'Edit', params: { _id } }">
+        Edit
+      </router-link>
     </div>
     <router-view :passenger="passenger" />
   </div>
