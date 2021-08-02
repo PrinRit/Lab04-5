@@ -11,7 +11,7 @@ export default {
     edit(){
 
       this.GStore.flashMessage = 
-      'You are successfully editted for ' + this.passenger.title
+      'You are successfully editted for ' + this.passenger.name
       setTimeout(() =>{
         //After 5 seconds remove it
         this.GStore.flashMessage = ''
