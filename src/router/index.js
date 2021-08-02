@@ -6,7 +6,9 @@ import Passenger from '@/views/event/Passenger.vue'
 import Airline from '@/views/event/Airline.vue'
 import NotFound from '@/views/NotFound.vue'
 import Edit from '@/views/event/Edit.vue'
-import NProgress from "nprogress";
+import NProgress from "nprogress"
+import EventService from '@/services/EventService.js'
+import GStore from '@/store'
 const routes = [
   {
     path: "/",
@@ -23,6 +25,23 @@ const routes = [
     name:"Layout",
     component: Layout,
     props: true,
+    beforeEnter: (to)=>{
+      return EventService.getEvent(to.params.id)// Return and params.id
+      .then(response =>{
+        // Set data here
+        GStore.passenger = response.data //<--- Store the events
+      })
+      .catch((error)=>{
+        if (error.response && error.response.status == 204){
+          return {// <--- Return
+          name: '404Resource',
+          params: {resource:'event'}
+          }
+        }else{
+          return {name: 'NetworkError'} // <--- Return
+        }
+      })
+    },
 
     children: [
       {
@@ -59,6 +78,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+
 })
 
 router.beforeEach(()=>{

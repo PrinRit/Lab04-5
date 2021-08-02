@@ -1,6 +1,6 @@
 <template>
-  <div v-if="passenger">
-    <h2>Details of {{ passenger.name }}</h2>
+  <div v-if="GStore.passenger">
+    <h2>Details of {{ GStore.passenger.name }}</h2>
     <div id="nav">
       <router-link :to="{ name: 'Passenger', params: { _id } }">
         Passenger
@@ -14,32 +14,13 @@
         Edit
       </router-link>
     </div>
-    <router-view :passenger="passenger" />
+    <router-view :passenger="GStore.passenger" />
   </div>
 </template>
 
 <script>
-import EventService from "@/services/EventService.js";
 
 export default {
-  props: ["id"],
-  data() {
-    return {
-      passenger: null,
-    };
-  },
-  created() {
-    EventService.getEvent(this.id)
-      .then((response) => {
-        this.passenger = response.data;
-        if (response && response.status == 204) {
-          this.$router.push({
-            name: "404Resource",
-            params: { resource: "event" },
-          });
-        }
-      })
-      .catch(() => {});
-  },
-};
+  inject:['GStore']
+}
 </script>
