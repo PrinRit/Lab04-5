@@ -6,7 +6,7 @@ import Passenger from '@/views/event/Passenger.vue'
 import Airline from '@/views/event/Airline.vue'
 import NotFound from '@/views/NotFound.vue'
 import Edit from '@/views/event/Edit.vue'
-
+import NProgress from "nprogress";
 const routes = [
   {
     path: "/",
@@ -59,6 +59,13 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-});
+})
+
+router.beforeEach(()=>{
+  NProgress.start()
+})
+router.afterEach(()=>{
+  NProgress.done()
+})
 
 export default router;

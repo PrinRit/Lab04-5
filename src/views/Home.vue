@@ -9,7 +9,6 @@
 //import space
 import EventCard from '@/components/EventCard.vue'
 import EventService from '@/services/EventService.js'
-
 export default {
   name: 'EventList',
   props:{
@@ -31,15 +30,38 @@ export default {
       totalEvent:0,//<--Add this to store totalEvents
     }
   },
-  created() {
-      EventService.getEvents(10,0)
-        .then((response) => {
-          this.events = response.data.data
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+  // created() {
+  //     EventService.getEvents(10,0)
+  //       .then((response) => {
+  //         this.events = response.data.data
+  //       })
+  //       .catch((error) => {
+  //         console.log(error)
+  //       })
+  // },
+   beforeRouteEnter(routeTo, routeFrom, next){
+    EventService.getEvents(10, parseInt(routeTo.query.page)||0)
+    .then((response)=>{
+      next((comp)=>{
+        comp.events = response.data.data
+        comp.totalEvents = response.headers['x-total-count']
+      })
+    })
+    .catch(()=>{
+      next({name: 'NetworkError'})
+    })
   },
+  beforeRouteUpdate(routeTo,routeFrom,next){
+    EventService.getEvents(10,parseInt(routeTo.query.page)||0)
+    .then((response)=>{
+      this.events = response.data.data //<----
+      this.totalEvents = response.headers['x-total-count'] //<----
+      next() //<----
+    })
+    .catch(()=>{
+      next({name: 'NetworkError'})
+    })
+  }
 }
 
 </script>
