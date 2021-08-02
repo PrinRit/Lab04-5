@@ -10,16 +10,16 @@ export default {
   methods:{
     edit(){
 
-      this.GStore.flash_edit = 
-      'You are successfully editted for ' + this.event.title
+      this.GStore.flashMessage = 
+      'You are successfully editted for ' + this.passenger.title
       setTimeout(() =>{
-        //After 3 seconds remove it
-        this.GStore.flash_edit = ''
+        //After 5 seconds remove it
+        this.GStore.flashMessage = ''
       }, 3000)
 
       this.$router.push({
-        name:'EventDetails',
-        params: {id: this.event.id}
+        name:'Home',
+        params: {id: this.passenger.id}
       })
     }
   }
